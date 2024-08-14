@@ -263,6 +263,7 @@ def GVDcorr(TAdata):
                     GVD_std=None
                 
         Corrected = GVDdata(GVD_data,GVD_std,TAdata)
+        Corrected.Ave=TAdata.Ave
         TAplt.plotTAdata(Corrected)  
     else:
         Corrected = []
@@ -282,6 +283,7 @@ def GVDcorr(TAdata):
                     GVD_std=None
                 
             Corrected.append(GVDdata(GVD_data,GVD_std,data))  
+            Corrected[-1].Ave=data.Ave
         manySpectral(Corrected, 0.1, 0.05)
         TAplt.plotTAdata(Corrected[0]) 
     
