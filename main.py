@@ -359,9 +359,13 @@ def onclick(event):
 def getGVDpos(TAdata):
     """"Function to use to extract points for GVDcorrection. Only call on it's own if you want the points used for GVDcorrection.
     Returns a tuple of GVD points in energy and time"""
+    scale = np.nanmax(TAdata.Intensity)
+    if abs(np.nanmin(TAdata.Intensity)) > scale:
+        scale = abs(np.nanmin(TAdata.Intensity))
+    
     GVDimg = TAplt.plotTAdata(TAdata,
-                              color_min=np.nanmin(TAdata.Intensity),
-                              color_max=-np.nanmin(TAdata.Intensity))
+                              color_min=-scale,
+                              color_max=scale)
     GVDaxs = GVDimg.axes
     klicker = clicker(GVDaxs[0],['GVDpos'],markers=["x"],linestyle="-",colors=["red"])
     plt.show()
