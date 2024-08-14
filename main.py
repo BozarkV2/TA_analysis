@@ -20,7 +20,7 @@ from mpl_point_clicker import clicker
 REIMPORT = True
 DIRECTORY = r'C:\water_pH5_27AQDS_magic_angle\Test'
 FluenceDir = DIRECTORY + '\\FluenceDep'
-all_subdirs=True
+ALL_SUBDIR=True
 PROBE = [320,700]
 
 def main(directory, all_subdirs,reimport):
