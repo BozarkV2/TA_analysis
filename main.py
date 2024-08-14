@@ -18,9 +18,8 @@ from lmfit import Parameters
 from mpl_point_clicker import clicker 
 
 REIMPORT = True
-DIRECTORY = r'C:\Users\Samth\Box\VWGroupShared\Data\MRL_108_20240515_OTA_AQDS\20240514_AQDS\water_pH5_27AQDS_magic_angle\Test'
-EXP_DIR = "/105E_UV/105E_19p25x9p25y_30uJ"
-FluenceDir = DIRECTORY + "/105E_Vis/FluenceDep"
+DIRECTORY = r'C:\water_pH5_27AQDS_magic_angle\Test'
+FluenceDir = DIRECTORY + '\\FluenceDep'
 all_subdirs=True
 PROBE = [320,700]
 
@@ -447,5 +446,7 @@ def autoFitGVD(TAdata,fit_region,method):
 
     return GVD_energy
 
-# if __name__ == '__main__':
-#     TAdata = main()
+
+if __name__ == '__main__':
+    TAdata = main(DIRECTORY,all_subdirs,REIMPORT)
+    AveData = AveTA(TAdata, PROBE)
