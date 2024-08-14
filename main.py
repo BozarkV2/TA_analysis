@@ -47,8 +47,11 @@ def main(directory, all_subdirs,reimport):
         for data in TAdata:
             data.BckgSub()
             TAplt.plotTAdata(data)
-            
-    return TAdata
+
+    if len(TAdata==1):
+        return TAdata[0]
+    else:
+        return TAdata
 
 def AveTA(TAdata, probe, t0_meth = 'auto', kineticWVL="",**kwargs):
     """Average a set of TAdata. Requires a list of TAdata, a range of wavelengths to average over,
