@@ -251,15 +251,17 @@ def GVDcorr(TAdata):
         GVD_data = np.zeros(np.shape(TAdata.Intensity))
         GVD_std = np.zeros(np.shape(TAdata.Intensity))
         for idx,wvl in enumerate(TAdata.Wavelength):
-            wvl_interp = interp1d(TAdata.Time,TAdata.Intensity[idx],
-                                  kind='linear',fill_value='extrapolate')
-            std_interp = interp1d(TAdata.Time,TAdata.Std[idx],
-                                  kind='linear',fill_value='extrapolate')
-            
-            GVD_data[idx][:] = wvl_interp(TAdata.Time[:]+np.polyval(GVD_fit,1239/wvl))
-            # GVD_data[idx][:] = wvl_interp(TAdata.Time[:]+np.polyval(GVD_fit,wvl))
-            GVD_std[idx][:] = std_interp(TAdata.Time[:]+np.polyval(GVD_fit,1239/wvl))
-            
+                wvl_interp = interp1d(TAdata.Time,TAdata.Intensity[idx],
+                                      kind='linear',fill_value='extrapolate')
+                GVD_data[idx][:] = wvl_interp(TAdata.Time[:]+np.polyval(GVD_fit,1239/wvl))
+                
+                if TAdata.Ave:
+                    std_interp = interp1d(TAdata.Time,TAdata.Std[idx],
+                                          kind='linear',fill_value='extrapolate')
+                    GVD_std[idx][:] = std_interp(TAdata.Time[:]+np.polyval(GVD_fit,1239/wvl))
+                else:
+                    GVD_std=None
+                
         Corrected = GVDdata(GVD_data,GVD_std,TAdata)
         TAplt.plotTAdata(Corrected)  
     else:
@@ -267,15 +269,17 @@ def GVDcorr(TAdata):
         for data in TAdata:
             GVD_data = np.zeros(np.shape(data.Intensity))
             GVD_std = np.zeros(np.shape(data.Intensity))
-            for idx,wvl in enumerate(data.Wavelength):
-                wvl_interp = interp1d(data.Time,data.Intensity[idx],
+            for idx,wvl in enumerate(TAdata.Wavelength):
+                wvl_interp = interp1d(TAdata.Time,TAdata.Intensity[idx],
                                       kind='linear',fill_value='extrapolate')
-                std_interp = interp1d(data.Time,data.Std[idx],
-                                      kind='linear',fill_value='extrapolate')
+                GVD_data[idx][:] = wvl_interp(TAdata.Time[:]+np.polyval(GVD_fit,1239/wvl))
                 
-                GVD_data[idx][:] = wvl_interp(data.Time[:]+np.polyval(GVD_fit,1239/wvl))
-                # GVD_data[idx][:] = wvl_interp(TAdata.Time[:]+np.polyval(GVD_fit,wvl))
-                GVD_std[idx][:] = std_interp(data.Time[:]+np.polyval(GVD_fit,1239/wvl))
+                if TAdata.Ave:
+                    std_interp = interp1d(TAdata.Time,TAdata.Std[idx],
+                                          kind='linear',fill_value='extrapolate')
+                    GVD_std[idx][:] = std_interp(TAdata.Time[:]+np.polyval(GVD_fit,1239/wvl))
+                else:
+                    GVD_std=None
                 
             Corrected.append(GVDdata(GVD_data,GVD_std,data))  
         manySpectral(Corrected, 0.1, 0.05)
