@@ -1,6 +1,9 @@
 # TA_analysis
 A collection of classes, methods, and scripts for working with OTA data. Specifically data produced at UIUC, but expanding to include more generic collection schemes.
 
+You can install the dependencies of this code base by downloading the requirements file and running the following:
+pip install -r requirements.txt
+
 Designed to work with multiple sets of optical transient absorption files and quickly process them, including:
 - importing multiple datasets from a single directory (main) or from multiple (main, or mainFluence)
 - averaging those datasets (AveTA)
