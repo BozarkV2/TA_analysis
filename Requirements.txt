@@ -1,0 +1,12 @@
+numpy
+lmfit
+matplotlib
+mpl_point_clicker
+scipy
+inspect
+sympy
+copy
+os
+re
+sys
+time
